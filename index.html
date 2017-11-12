@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CURRENCY APP</title>
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular-route.min.js"></script>
+		<script>
+			var moduleRef = angular.module('myApp', ['ngRoute']);
+			moduleRef.config(function($routeProvider){
+				$routeProvider
+				.when('/route1', {
+					templateUrl: 'templates/custom.html',
+					controller: 'customController'})
+				.when('/', {
+					templateUrl: 'templates/converter.html',
+					controller: 'mainController' 
+				});
+			});
+			moduleRef.service('word', function(){
+				this.curr = [{name:'US Dollar', value:67}, {name:'Indian Rupee', value:1}, 
+								{name:'British Pound', value:87}, {name:'Euro', value:77},
+								{name:'Australian Dollar', value:49}, {name:'Canadian Dollar', value:50},
+								{name:'Singapore Dollar', value:47}, {name:'Swiss Franc', value:64},
+								{name:'Malaysian Ringgit', value:15}, {name:'Japanese Yen', value:0.56},
+								{name:'Chinese Yuan Renminbi', value:9}];
+				this.curr1 = [{name:'US Dollar', value:67}, {name:'Indian Rupee', value:1}, 
+								{name:'British Pound', value:87}, {name:'Euro', value:77},
+								{name:'Australian Dollar', value:49}, {name:'Canadian Dollar', value:50},
+								{name:'Singapore Dollar', value:47}, {name:'Swiss Franc', value:64},
+								{name:'Malaysian Ringgit', value:15}, {name:'Japanese Yen', value:0.56},
+								{name:'Chinese Yuan Renminbi', value:9}];
+			});
+			moduleRef.controller('mainController', ['word','$scope', function(word, $scope){
+				$scope.inr = "";
+				$scope.enteredCurr=1;
+				$scope.enteredCurr1=1;
+				$scope.curr = word.curr;
+				$scope.curr1 = word.curr1;
+				$scope.selectedCurr = $scope.curr[0];
+				$scope.selectedCurr1 = $scope.curr1[0];
+				$scope.calculateCurrency = function(){
+					$scope.enteredCurr1 = $scope.enteredCurr * ($scope.selectedCurr.value / $scope.selectedCurr1.value);
+				}
+				$scope.calculateCurrency1 = function(){
+					$scope.enteredCurr = $scope.enteredCurr1 * ($scope.selectedCurr1.value / $scope.selectedCurr.value);
+				}
+				$scope.$watch('curr', function(){
+					word.curr = $scope.curr;
+				});
+				$scope.$watch('curr1', function(){
+					word.curr1 = $scope.curr1;
+				});
+			}]);
+			moduleRef.controller('customController', ['word','$scope', function(word, $scope){
+				$scope.curr = word.curr;
+				$scope.curr1 = word.curr1;
+				$scope.addCurrency = function(){
+					var newCurr = {name:$scope.currName, value:$scope.currValue};
+					$scope.curr.push(newCurr);
+					$scope.curr1.push(newCurr);
+				}
+				$scope.deleteCurrency = function(index){
+					$scope.curr.splice( index, 1 );
+					$scope.curr1.splice( index, 1 );
+				}
+				$scope.$watch('curr', function(){
+					word.curr = $scope.curr;
+				});
+				$scope.$watch('curr1', function(){
+					word.curr1 = $scope.curr1;
+				});
+			}]);
+			
+		</script>
+		<style>
+			body{
+				background-color: #2E86C1;
+			}
+			.navbar-default{
+				border:none;
+				background-color: #2E86C1;
+			}
+			.box{
+				position: relative;
+				top:150px;
+				background-color:#2C3E50;
+				padding:30px;
+				margin-bottom: 10px;
+			}
+			.box1{
+				position: relative;
+				top:50px;
+				background-color:#2C3E50;
+				padding:30px;
+				margin-bottom: 10px;
+			}
+			.table{
+				color: white;
+			}
+			.routes{
+				color: white;
+				text-decoration-line: none;
+				float: right;
+			}
+			p a:hover {
+				text-decoration: none;
+				color: white;
+			}
+		</style>
+	</head>
+	<body ng-app="myApp">
+		<div class="container-fluid">
+			<div ng-view></div>
+		</div>
+	</body>
+</html>
