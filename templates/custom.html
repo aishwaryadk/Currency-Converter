@@ -1,0 +1,31 @@
+<p><a href="#/" style="color:white">BACK</a></p>
+<div class="col-md-offset-4 col-md-4">
+	<div class="box1">
+		<div class="form-group">
+			<label class="control-label" style="color:white">SEARCH:</label> 
+			<input type="text" class="form-control" ng-model="searchCurr">
+		</div>
+		<div class="form-group">
+			<label class="control-label" style="color:white">ENTER NEW CURRENCY:</label>
+			<input type="text" class="form-control" ng-model="currName">
+		</div>
+		<div class="form-group">
+			<label class="control-label" style="color:white">ENTER INR VALUE:</label>
+			<input type="number" class="form-control" ng-model="currValue">
+		</div>
+		<button class="btn btn-warning" ng-click="addCurrency()">ADD</button><br><br>
+		<table class="table table-bordered">
+			<tr>
+				<th>CURRENCY</th>
+				<th>VALUE IN INR</th>
+				<th>ACTION</th>
+			</tr>
+			<tr ng-repeat="c in curr|filter:searchCurr track by $index">
+				<td>{{c.name}}</td>
+				<td>{{c.value}}</td>
+				<td><button class="btn btn-xs btn-danger" ng-click="deleteCurrency($index)">Delete</button></td>
+			</tr>
+		</table>
+	</div>
+</div>
+

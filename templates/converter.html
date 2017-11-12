@@ -1,0 +1,24 @@
+<p><a href="#/route1" class="routes">CUSTOM CURRENCY</a></p>
+<div class="col-md-offset-3 col-md-6">
+	<div class="box">
+		<h1 style="text-align:center; color:white">CURRENCY CONVERTER</h1><br><br>
+		<div class="row">
+			<div class="col-md-6">
+				<input type="number" ng-model="enteredCurr" class="form-control" ng-change="calculateCurrency()">
+			</div>
+			<div class="col-md-6">
+				<select class="form-control" ng-model="selectedCurr" ng-change="calculateCurrency()" ng-options="list.name for list in curr">
+				</select>
+			</div>
+		</div><br>
+		<div class="row">
+			<div class="col-md-6">
+				<input type="number" ng-model="enteredCurr1" class="form-control" ng-change="calculateCurrency1()">
+			</div>
+			<div class="col-md-6">
+				<select class="form-control" ng-model="selectedCurr1" ng-change="calculateCurrency1()" ng-options="list.name for list in curr1">
+				</select>
+			</div>
+		</div>
+	</div>
+</div>
